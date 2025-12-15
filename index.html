@@ -84,6 +84,23 @@
         .animate-fade-in {
             animation: fadeIn 0.4s ease-out forwards;
         }
+
+        /* Loading shimmer */
+        .shimmer {
+            animation-duration: 1.8s;
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;
+            animation-name: placeHolderShimmer;
+            animation-timing-function: linear;
+            background: #f6f7f8;
+            background: linear-gradient(to right, #fafafa 8%, #f4f4f4 38%, #fafafa 54%);
+            background-size: 1000px 640px;
+        }
+
+        @keyframes placeHolderShimmer {
+            0% { background-position: -468px 0; }
+            100% { background-position: 468px 0; }
+        }
     </style>
 </head>
 <body>
@@ -128,13 +145,14 @@
     <!-- Application Logic -->
     <script>
         // --- Data ---
+        // Coordinates: Kumamoto (32.8031, 130.7079), Fukuoka (33.5901, 130.4017)
         const itineraryData = [
             {
                 day: 1,
                 date: "12/18 (四)",
                 title: "熊本城與美食",
-                weather: "晴 4-17°C",
-                weatherIcon: "fa-sun text-orange-400",
+                locationName: "熊本",
+                coords: { lat: 32.8031, lng: 130.7079 },
                 note: "不使用 Pass (IC卡/現金)",
                 events: [
                     { time: "10:35", type: "transport", title: "抵達熊本機場 (KMJ)", desc: "出關後前往巴士乘車處", dest: "熊本機場" },
@@ -163,8 +181,8 @@
                 day: 2,
                 date: "12/19 (五)",
                 title: "小倉與博多名物",
-                weather: "晴 4-19°C",
-                weatherIcon: "fa-sun text-orange-400",
+                locationName: "福岡",
+                coords: { lat: 33.5901, lng: 130.4017 },
                 note: "JR Pass Day 1 (指定席)",
                 events: [
                     { time: "07:42", type: "transport", title: "新幹線 Sakura 542", desc: "熊本 → 博多 (往新大阪)", dest: "博多站" },
@@ -193,8 +211,8 @@
                 day: 3,
                 date: "12/20 (六)",
                 title: "鬼滅聖地 & 福岡塔",
-                weather: "多雲時晴",
-                weatherIcon: "fa-cloud-sun text-yellow-500",
+                locationName: "福岡",
+                coords: { lat: 33.5901, lng: 130.4017 },
                 note: "JR Pass Day 2 (複雜轉乘)",
                 events: [
                     { time: "08:05", type: "transport", title: "新幹線 Mizuho 602", desc: "熊本 → 博多 (33分鐘最速)", dest: "博多站" },
@@ -218,8 +236,8 @@
                 day: 4,
                 date: "12/21 (日)",
                 title: "天神地下街避雨",
-                weather: "雨/多雲",
-                weatherIcon: "fa-cloud-rain text-blue-400",
+                locationName: "福岡",
+                coords: { lat: 33.5901, lng: 130.4017 },
                 note: "JR Pass Day 3 (室內行程)",
                 events: [
                     { time: "08:39", type: "transport", title: "新幹線 Sakura 544", desc: "熊本 → 博多 (需劃位)", dest: "博多站" },
@@ -242,8 +260,8 @@
                 day: 5,
                 date: "12/22 (一)",
                 title: "退房與返程",
-                weather: "雨 10-16°C",
-                weatherIcon: "fa-umbrella text-blue-600",
+                locationName: "熊本",
+                coords: { lat: 32.8031, lng: 130.7079 },
                 events: [
                     { time: "08:30", type: "transport", title: "前往機場", desc: "熊本站前【7號月台】搭乘利木津巴士 (約1000円)", dest: "熊本機場" },
                     { time: "11:45", type: "transport", title: "飛機起飛", desc: "帶著滿滿回憶回家", dest: "台灣桃園國際機場" }
@@ -306,15 +324,15 @@
             itineraryData.forEach((day, index) => {
                 html += `
                 <div class="relative" style="animation-delay: ${index * 0.1}s">
-                    <!-- Date Header -->
+                    <!-- Date Header with Real-time Weather -->
                     <div class="flex items-center justify-between mb-4 sticky top-[60px] z-10 py-3 bg-jp-bg/95 backdrop-blur border-b border-gray-100/50">
                         <div class="flex items-baseline gap-2">
                             <span class="text-xl font-bold text-matcha">Day ${day.day}</span>
                             <span class="text-xs text-jp-gray font-medium uppercase tracking-wider">${day.date}</span>
                         </div>
-                        <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full shadow-sm border border-gray-100">
-                            <i class="fa-solid ${day.weatherIcon} text-sm"></i>
-                            <span class="text-xs font-bold text-jp-gray">${day.weather.split(' ')[1] || day.weather}</span>
+                        <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full shadow-sm border border-gray-100 min-w-[100px] justify-center" id="weather-card-${index}">
+                            <!-- Weather Loading State -->
+                            <div class="w-16 h-4 bg-gray-100 rounded shimmer"></div>
                         </div>
                     </div>
                     
@@ -407,6 +425,73 @@
 
             html += '</div>';
             container.innerHTML = html;
+            
+            // Trigger fetching weather after rendering
+            fetchRealTimeWeather();
+        }
+
+        // --- Weather Logic ---
+        async function fetchRealTimeWeather() {
+            itineraryData.forEach(async (day, index) => {
+                const card = document.getElementById(`weather-card-${index}`);
+                if (!card) return;
+                
+                // If coordinates exist
+                if (day.coords) {
+                    try {
+                        const url = `https://api.open-meteo.com/v1/forecast?latitude=${day.coords.lat}&longitude=${day.coords.lng}&current_weather=true&timezone=Asia%2FTokyo`;
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        
+                        if (data.current_weather) {
+                            const { weathercode, temperature } = data.current_weather;
+                            const weatherInfo = getWeatherIcon(weathercode);
+                            
+                            card.innerHTML = `
+                                <i class="fa-solid ${weatherInfo.icon} text-sm"></i>
+                                <div class="flex flex-col items-end leading-none">
+                                    <span class="text-xs font-bold text-jp-gray">${temperature}°C</span>
+                                    <span class="text-[8px] text-gray-400">${day.locationName}</span>
+                                </div>
+                            `;
+                        }
+                    } catch (e) {
+                        console.error("Weather fetch failed", e);
+                        card.innerHTML = `<span class="text-[10px] text-gray-400">天氣讀取失敗</span>`;
+                    }
+                }
+            });
+        }
+
+        function getWeatherIcon(code) {
+            // WMO Weather interpretation codes (WW)
+            // https://open-meteo.com/en/docs
+            const map = {
+                0: { icon: "fa-sun text-orange-400", desc: "晴天" },
+                1: { icon: "fa-sun text-orange-300", desc: "大致晴朗" },
+                2: { icon: "fa-cloud-sun text-yellow-500", desc: "多雲" },
+                3: { icon: "fa-cloud text-gray-400", desc: "陰天" },
+                45: { icon: "fa-smog text-gray-400", desc: "霧" },
+                48: { icon: "fa-smog text-gray-400", desc: "霧" },
+                51: { icon: "fa-cloud-rain text-blue-300", desc: "毛毛雨" },
+                53: { icon: "fa-cloud-rain text-blue-400", desc: "毛毛雨" },
+                55: { icon: "fa-cloud-rain text-blue-500", desc: "毛毛雨" },
+                61: { icon: "fa-cloud-rain text-blue-400", desc: "小雨" },
+                63: { icon: "fa-cloud-rain text-blue-500", desc: "中雨" },
+                65: { icon: "fa-cloud-showers-heavy text-blue-600", desc: "大雨" },
+                80: { icon: "fa-cloud-showers-heavy text-blue-500", desc: "陣雨" },
+                81: { icon: "fa-cloud-showers-heavy text-blue-600", desc: "陣雨" },
+                82: { icon: "fa-cloud-showers-heavy text-blue-700", desc: "強陣雨" },
+                95: { icon: "fa-bolt text-yellow-600", desc: "雷雨" },
+                96: { icon: "fa-bolt text-yellow-600", desc: "雷雨" },
+                99: { icon: "fa-bolt text-yellow-600", desc: "雷雨" }
+            };
+            
+            // Snow codes logic included for completeness but unlikely for typical Kyushu trip unless winter
+            if (code >= 71 && code <= 77) return { icon: "fa-snowflake text-cyan-300", desc: "雪" };
+            if (code >= 85 && code <= 86) return { icon: "fa-snowflake text-cyan-400", desc: "雪" };
+
+            return map[code] || { icon: "fa-question text-gray-300", desc: "未知" };
         }
 
         function renderInfo() {
