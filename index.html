@@ -135,22 +135,24 @@
                 title: "熊本城與美食",
                 weather: "晴 4-17°C",
                 weatherIcon: "fa-sun text-orange-400",
-                note: "本日不使用 JR Pass",
+                note: "不使用 Pass (IC卡/現金)",
                 events: [
-                    { time: "10:35", type: "transport", title: "抵達熊本機場 (KMJ)", desc: "於【4號站牌】搭乘利木津巴士前往 JR 熊本站 (約1000円)", dest: "JR 熊本站" },
-                    { time: "12:30", type: "task", title: "JR Pass 兌換", desc: "綠色窗口兌換並劃位 (Sakura/Sonic/Mizuho)", tag: "必辦" },
-                    { time: "13:00", type: "food", title: "勝烈亭 豬排", desc: "AMU PLAZA 熊本店，推薦鹿兒島六白黑豚", location: "勝烈亭 AMU PLAZA", tag: "必吃" },
-                    { time: "14:30", type: "transport", title: "前往熊本城", desc: "市電 A 系統：熊本站 → 市役所前 (180円)", dest: "熊本城・市役所前" },
-                    { time: "15:00", type: "spot", title: "熊本城黃金路線", desc: "加藤神社 → 天守閣 → 稻荷神社 (需門票)", location: "熊本城", tag: "聖地巡禮" },
-                    { time: "17:00", type: "spot", title: "櫻之馬場 城彩苑", desc: "甜點：蜂樂饅頭、岡田珈琲", location: "櫻之馬場 城彩苑", tag: "伴手禮", 
-                      subLocations: [
-                          { name: "蜂樂饅頭", query: "蜂樂饅頭 熊本本店" },
-                          { name: "岡田珈琲", query: "岡田珈琲 熊本" }
+                    { time: "10:35", type: "transport", title: "抵達熊本機場 (KMJ)", desc: "出關後前往巴士乘車處", dest: "熊本機場" },
+                    { time: "11:30", type: "transport", title: "前往飯店", desc: "搭乘空港利木津巴士往「熊本駅前」 (約1000円)", dest: "JR 熊本站" },
+                    { time: "12:30", type: "task", title: "JR Pass 兌換", desc: "熊本站綠色窗口。任務：兌換 Pass + 劃好 Day 2-4 指定席", tag: "重要任務" },
+                    { time: "13:00", type: "food", title: "勝烈亭 豬排", desc: "AMU PLAZA 熊本店 (飯店旁)，推薦鹿兒島六白黑豚", location: "勝烈亭 AMU PLAZA", tag: "必吃" },
+                    { time: "14:30", type: "transport", title: "前往熊本城", desc: "市電 A 系統：往健軍町。下車：熊本城・市役所前 (180円)", dest: "熊本城・市役所前" },
+                    { time: "15:00", type: "spot", title: "熊本城黃金路線", desc: "加藤神社 → 天守閣 → 稻荷神社", location: "熊本城", tag: "聖地巡禮",
+                       subLocations: [
+                          { name: "加藤神社", query: "加藤神社" },
+                          { name: "天守閣", query: "熊本城天守閣" },
+                          { name: "稻荷神社", query: "熊本城稻荷神社" }
                       ]
                     },
-                    { time: "17:30", type: "spot", title: "市役所展望台", desc: "14樓免費展望台看晚霞/夜景", location: "熊本市役所" },
-                    { time: "18:00", type: "shop", title: "AMU PLAZA 購物", desc: "Uniqlo, GU, 超市補貨", location: "AMU PLAZA 熊本" },
-                    { time: "19:30", type: "food", title: "晚餐: 熊本拉麵 黑亭", desc: "本店，濃郁蒜香豚骨。備案：天草福伸", location: "熊本拉麵 黑亭 本店", tag: "必吃",
+                    { time: "17:00", type: "spot", title: "櫻之馬場 城彩苑", desc: "吃蜂樂饅頭，買伴手禮", location: "櫻之馬場 城彩苑", tag: "點心" },
+                    { time: "17:30", type: "spot", title: "市役所夜景", desc: "14樓免費展望台", location: "熊本市役所" },
+                    { time: "18:00", type: "shop", title: "AMU PLAZA 採購", desc: "市電回熊本站(180円)。逛 UQ, GU, 超市", location: "AMU PLAZA 熊本" },
+                    { time: "19:30", type: "food", title: "晚餐: 熊本拉麵 黑亭", desc: "本店(濃郁) 或 天草福伸(海鮮)", location: "熊本拉麵 黑亭 本店", tag: "必吃",
                       subLocations: [
                           { name: "備案: 天草福伸", query: "天草福伸 熊本" }
                       ]
@@ -163,47 +165,52 @@
                 title: "小倉與博多名物",
                 weather: "晴 4-19°C",
                 weatherIcon: "fa-sun text-orange-400",
-                note: "使用 JR Pass Day 1",
+                note: "JR Pass Day 1 (指定席)",
                 events: [
-                    { time: "07:42", type: "transport", title: "新幹線 Sakura 542", desc: "熊本 → 博多 (需劃位)", dest: "博多站" },
-                    { time: "08:57", type: "transport", title: "特急 Sonic 9", desc: "博多 → 小倉 (車程40-50分)", dest: "小倉站" },
-                    { time: "10:00", type: "spot", title: "小倉城", desc: "早晨散步 (需門票)", location: "小倉城" },
-                    { time: "12:00", type: "spot", title: "門司港 & 燒咖哩", desc: "從小倉搭車15分。午餐：Princess Phi Phi", location: "門司港 Princess Phi Phi", tag: "特色美食" },
-                    { time: "15:00", type: "food", title: "博多下午茶巡禮", desc: "Dacomecca 麵包、Mannekenpis 蛋糕、努努雞", location: "Dacomecca", tag: "排隊名店",
+                    { time: "07:42", type: "transport", title: "新幹線 Sakura 542", desc: "熊本 → 博多 (往新大阪)", dest: "博多站" },
+                    { time: "08:57", type: "transport", title: "特急 Sonic 9", desc: "博多 → 小倉 (往大分)", dest: "小倉站" },
+                    { time: "10:00", type: "spot", title: "小倉城", desc: "早晨散步", location: "小倉城" },
+                    { time: "12:00", type: "spot", title: "門司港 & 燒咖哩", desc: "JR普通車往門司港。午餐：Princess Phi Phi", location: "門司港 Princess Phi Phi", tag: "特色美食" },
+                    { time: "14:30", type: "transport", title: "返回博多", desc: "門司港→小倉(普通) / 小倉→博多(Sonic自由席)", dest: "博多站" },
+                    { time: "15:00", type: "food", title: "博多站美食攻略", desc: "Dacomecca 麵包、Mannekenpis 蛋糕、努努雞", location: "Dacomecca", tag: "排隊名店",
                       subLocations: [
+                          { name: "Dacomecca", query: "Dacomecca" },
                           { name: "Mannekenpis", query: "gâteau Mannekenpis" },
                           { name: "努努雞", query: "努努雞 博多" }
                       ]
                     },
-                    { time: "16:30", type: "spot", title: "博多散步", desc: "東長寺(16:45關)、櫛田神社、博多運河城", location: "櫛田神社", 
+                    { time: "16:30", type: "spot", title: "祇園散策", desc: "地鐵往祇園(210円)。東長寺、櫛田神社、運河城", location: "櫛田神社", 
                       subLocations: [
                           { name: "東長寺", query: "東長寺" },
                           { name: "運河城", query: "博多運河城" }
                       ]
                     },
                     { time: "19:00", type: "food", title: "水炊雞肉 とりまぶし", desc: "博多必吃水炊鍋", location: "とりまぶし", tag: "必吃" },
-                    { time: "20:30", type: "transport", title: "新幹線回熊本", desc: "搭乘 Tsubame 或 Sakura (自由席)", dest: "熊本站" }
+                    { time: "20:30", type: "transport", title: "新幹線回熊本", desc: "搭乘自由席", dest: "熊本站" }
                 ]
             },
             {
                 day: 3,
                 date: "12/20 (六)",
                 title: "鬼滅聖地 & 福岡塔",
-                weather: "多雲時晴 8-21°C",
+                weather: "多雲時晴",
                 weatherIcon: "fa-cloud-sun text-yellow-500",
-                note: "使用 JR Pass Day 2",
+                note: "JR Pass Day 2 (複雜轉乘)",
                 events: [
                     { time: "08:05", type: "transport", title: "新幹線 Mizuho 602", desc: "熊本 → 博多 (33分鐘最速)", dest: "博多站" },
-                    { time: "09:30", type: "spot", title: "太宰府天滿宮", desc: "避開人潮。早餐：Loop a Bread、星巴克", location: "太宰府天滿宮", tag: "早鳥優惠",
+                    { time: "09:00", type: "transport", title: "前往太宰府", desc: "地鐵(博多-天神) + 西鐵(天神-太宰府)。共約630円", dest: "太宰府站" },
+                    { time: "09:30", type: "spot", title: "太宰府天滿宮", desc: "早餐：Loop a Bread、星巴克表參道", location: "太宰府天滿宮", tag: "早鳥",
                        subLocations: [
                           { name: "Loop a Bread", query: "Loop a Bread 太宰府" },
-                          { name: "星巴克表參道", query: "星巴克 太宰府天滿宮表參道店" }
+                          { name: "星巴克", query: "星巴克 太宰府天滿宮表參道店" }
                       ]
                     },
-                    { time: "11:00", type: "spot", title: "竈門神社", desc: "搭Mahoroba巴士前往，鬼滅聖地", location: "寶滿宮 竈門神社", tag: "鬼滅聖地" },
+                    { time: "11:00", type: "spot", title: "竈門神社", desc: "搭 Mahoroba 巴士 (100円)", location: "寶滿宮 竈門神社", tag: "鬼滅聖地" },
+                    { time: "13:30", type: "transport", title: "返回市區(大濠公園)", desc: "西鐵回天神 + 地鐵往大濠公園。共約630円", dest: "大濠公園" },
                     { time: "14:30", type: "food", title: "FUK COFFEE Parks", desc: "大濠公園散策下午茶", location: "FUK COFFEE Parks" },
-                    { time: "17:00", type: "spot", title: "福岡塔", desc: "觀賞夕陽與夜景 (需門票)", location: "福岡塔" },
-                    { time: "18:30", type: "food", title: "燒肉 Benjamin", desc: "博多燒肉晚餐", location: "燒肉ベンジャミン", tag: "必吃" },
+                    { time: "16:30", type: "transport", title: "前往福岡塔", desc: "搭西鐵巴士 77/78 號 (約240円)", dest: "福岡塔" },
+                    { time: "17:00", type: "spot", title: "福岡塔", desc: "觀賞夕陽與夜景", location: "福岡塔" },
+                    { time: "18:30", type: "food", title: "燒肉 Benjamin", desc: "搭巴士往天神/赤坂用餐 (約240円)", location: "燒肉ベンジャミン", tag: "必吃" },
                     { time: "20:30", type: "transport", title: "新幹線回熊本", desc: "自由席", dest: "熊本站" }
                 ]
             },
@@ -211,24 +218,24 @@
                 day: 4,
                 date: "12/21 (日)",
                 title: "天神地下街避雨",
-                weather: "雨/多雲 11-18°C",
+                weather: "雨/多雲",
                 weatherIcon: "fa-cloud-rain text-blue-400",
-                note: "使用 JR Pass Day 3",
+                note: "JR Pass Day 3 (室內行程)",
                 events: [
                     { time: "08:39", type: "transport", title: "新幹線 Sakura 544", desc: "熊本 → 博多 (需劃位)", dest: "博多站" },
-                    { time: "10:00", type: "food", title: "Blue Bottle Coffee", desc: "警固神社旁早午餐，備案：dacō", location: "Blue Bottle Coffee 福岡天神", tag: "文青必去",
+                    { time: "10:00", type: "food", title: "Blue Bottle Coffee", desc: "地鐵往天神(210円)。警固神社旁早午餐", location: "Blue Bottle Coffee 福岡天神", tag: "文青",
                       subLocations: [
                           { name: "備案: dacō", query: "dacō (ダコー) 福岡" },
                           { name: "警固神社", query: "警固神社" }
                       ]
                     },
-                    { time: "11:30", type: "spot", title: "天神地下街", desc: "室內逛街躲雨。Full Full 明太子麵包", location: "天神地下街",
+                    { time: "11:30", type: "spot", title: "天神地下街", desc: "室內逛街躲雨。Full Full 明太子麵包、Uniqlo", location: "天神地下街",
                        subLocations: [
                           { name: "Full Full", query: "Full Full 天神麵包" }
                       ]
                     },
                     { time: "14:30", type: "food", title: "Pan del Sol", desc: "麵包與咖啡休息", location: "Pan del Sol" },
-                    { time: "16:30", type: "transport", title: "新幹線回熊本", desc: "回飯店整理行李", dest: "熊本站" }
+                    { time: "16:30", type: "transport", title: "新幹線回熊本", desc: "地鐵回博多(210円) → 新幹線回飯店打包", dest: "熊本站" }
                 ]
             },
             {
@@ -238,7 +245,7 @@
                 weather: "雨 10-16°C",
                 weatherIcon: "fa-umbrella text-blue-600",
                 events: [
-                    { time: "08:30", type: "transport", title: "前往機場", desc: "於【7號站牌】搭乘利木津巴士 (約1000円)", dest: "熊本機場" },
+                    { time: "08:30", type: "transport", title: "前往機場", desc: "熊本站前【7號月台】搭乘利木津巴士 (約1000円)", dest: "熊本機場" },
                     { time: "11:45", type: "transport", title: "飛機起飛", desc: "帶著滿滿回憶回家", dest: "台灣桃園國際機場" }
                 ]
             }
@@ -253,19 +260,19 @@
             hotelDesc: "JR 熊本站直結，交通超方便",
             tickets: [
                 "JR 北九州 3 日券 (12/19-12/21)",
-                "IC 卡 (Suica/ICOCA) - 預儲 6000円"
+                "需儲值 IC 卡 (Suica/ICOCA) 約 6000円"
             ],
             ticketCosts: [
                 { item: "熊本城天守閣", price: "800円" },
                 { item: "小倉城", price: "350円" },
                 { item: "福岡塔", price: "800円" },
-                { item: "大眾運輸 (IC卡)", price: "5500円+" }
+                { item: "Day 3 複雜交通費", price: "~2240円" }
             ],
             transportBudget: [
                 { day: "Day 1", desc: "機場巴+市電", cost: 1360 },
-                { day: "Day 2", desc: "地鐵來回", cost: 420 },
-                { day: "Day 3", desc: "太宰府/大濠/福岡塔", cost: 2240 },
-                { day: "Day 4", desc: "天神地鐵", cost: 420 },
+                { day: "Day 2", desc: "福岡地鐵", cost: 420 },
+                { day: "Day 3", desc: "私鐵+地鐵+巴", cost: 2240 },
+                { day: "Day 4", desc: "福岡地鐵", cost: 420 },
                 { day: "Day 5", desc: "機場巴士", cost: 1000 }
             ]
         };
@@ -313,7 +320,7 @@
                     
                     ${day.note ? `<div class="mb-4 mx-1 text-[11px] text-kaki font-bold border border-kaki/30 bg-kaki-light/50 px-3 py-1.5 rounded-lg inline-flex items-center gap-1"><i class="fa-solid fa-thumbtack"></i> ${day.note}</div>` : ''}
                     
-                    <div class="space-y-4 pl-3 border-l-2 border-gray-200 ml-2.5">
+                    <div class="space-y-4">
                 `;
 
                 day.events.forEach(event => {
@@ -343,7 +350,7 @@
 
                     let tagsHtml = '';
                     if (event.tag) {
-                        const isMust = event.tag.includes('必');
+                        const isMust = event.tag.includes('必') || event.tag.includes('重要');
                         const tagStyle = isMust ? 'bg-red-50 text-red-500 border-red-100' : 'bg-gray-50 text-gray-500 border-gray-100';
                         tagsHtml = `<span class="text-[10px] px-2 py-0.5 rounded border ${tagStyle} font-medium">${event.tag}</span>`;
                     }
@@ -363,17 +370,14 @@
                     }
 
                     html += `
-                    <div class="relative bg-white rounded-xl p-4 shadow-soft ml-5 transform transition-all active:scale-[0.99]">
-                        <!-- Timeline Dot -->
-                        <div class="absolute -left-[29px] top-5 w-3.5 h-3.5 rounded-full border-2 border-jp-bg ${event.type === 'transport' ? 'bg-matcha' : 'bg-gray-300'} ring-1 ring-gray-200"></div>
-                        
+                    <div class="relative bg-white rounded-xl p-4 shadow-soft transform transition-all active:scale-[0.99]">
                         <div class="flex gap-4">
                             <!-- Icon & Time -->
                             <div class="flex-shrink-0 flex flex-col items-center gap-1 w-12">
                                 <div class="w-10 h-10 rounded-full ${iconBg} flex items-center justify-center shadow-sm">
                                     <i class="fa-solid ${iconClass}"></i>
                                 </div>
-                                <span class="text-[11px] font-mono text-gray-400 font-medium mt-1">${event.time}</span>
+                                <span class="text-xs font-mono text-gray-400 font-medium mt-1">${event.time}</span>
                             </div>
                             
                             <!-- Content -->
